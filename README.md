@@ -1,5 +1,15 @@
 # Hotel Reservation App
 
+- This app allows an individual to book a hotel listd in the app. It also has options like card pay and MPESA integration.
+
+## Technologies
+
+- Python
+- Flask server
+- Javascript
+- HTML
+- CSS
+
 ## Create & Populate Databasse
 
 - Prior to running the application please delete the existing users.db database
