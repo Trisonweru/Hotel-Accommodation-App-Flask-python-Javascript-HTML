@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/bootstrap-material-design.min.css')}}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/dashboard.css')}}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+    />
+
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <div class="navigation">
+      <a href="/dashboard" class="logo"
+        ><img src="{{url_for('static', filename='images/logo.png')}}"
+      /></a>
+      <ul>
+        <li class="list active">
+          <b></b>
+          <b></b>
+          <a href="#">
+            <span class="icon"><i class="uil uil-estate"></i></span>
+            <span class="title">Home</span>
+          </a>
+        </li>
+        <li class="list">
+          <b></b>
+          <b></b>
+          <a href="#">
+            <span class="icon"><i class="uil uil-envelope-alt"></i></span>
+            <span class="title">Bookings</span>
+          </a>
+        </li>
+        <li class="list">
+          <b></b>
+          <b></b>
+          <a href="#">
+            <span class="icon"><i class="uil uil-plus-circle"></i></span>
+            <span class="title">Listings</span>
+          </a>
+        </li>
+        <li class="list">
+          <b></b>
+          <b></b>
+          <a href="#">
+            <span class="icon"><i class="uil uil-user-plus"></i></span>
+            <span class="title">Customers</span>
+          </a>
+        </li>
+        <li class="list">
+          <b></b>
+          <b></b>
+          <a href="#">
+            <span class="icon"><i class="uil uil-analytics"></i></span>
+            <span class="title">Analytics</span>
+          </a>
+        </li>
+        <li class="list">
+          <b></b>
+          <b></b>
+          <a href="#">
+            <span class="icon"><i class="uil uil-megaphone"></i></span>
+            <span class="title">Marketing</span>
+          </a>
+        </li>
+        <li class="list">
+          <b></b>
+          <b></b>
+          <a href="#">
+            <span class="icon"><i class="uil uil-gold"></i></span>
+            <span class="title">Discounts</span>
+          </a>
+        </li>
+        <li class="list">
+          <b></b>
+          <b></b>
+          <a href="#">
+            <span class="icon"><i class="uil uil-setting"></i></span>
+            <span class="title">Settings</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="toggle">
+      <i class="uil uil-bars" id="open"></i>
+      <i class="uil uil-times" id="close"></i>
+    </div>
+    <div class="dropdrown">
+      <div class="user">
+        <i class="uil uil-user-circle"></i>
+      </div>
+      <div class="user-dropdown">
+        <ul>
+          <li>
+            <a href="#">Profile</a>
+          </li>
+          <li>
+            <a href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="notifications">
+      <i class="uil uil-bell"></i>
+    </div>
+
+    {%block content%} {%endblock content%}
+    <!-- 
+    <script src="{{url_for('static', filename='js/jquery-3.2.1.slim.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/popper.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap-material-design.js')}}"></script> -->
+
+    <script>
+      let toggle = document.querySelector(".toggle");
+      let navigation = document.querySelector(".navigation");
+      toggle.onclick = () => {
+        toggle.classList.toggle("active");
+        navigation.classList.toggle("active");
+      };
+
+      let list = document.querySelectorAll(".list");
+
+      for (let i = 0; i < list.length; i++) {
+        list[i].onclick = function () {
+          let j = 0;
+          while (j < list.length) {
+            list[j++].className = "list";
+          }
+          list[i].className = "list active";
+        };
+      }
+    </script>
+
+    <!-- <script>
+      $(document).ready(function () {
+        $("body").bootstrapMaterialDesign();
+      });
+    </script> -->
+  </body>
+</html>

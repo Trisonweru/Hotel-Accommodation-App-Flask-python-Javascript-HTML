@@ -1,0 +1,109 @@
+{% extends "layout.html"%} {%block content%}
+<div class="container1">
+  {% include "_msgs.html"%} {% from "_formhelpers.html" import render_field%}
+  <div>
+    <h1 class="text-center mt-4" style="color: brown">Make your payment</h1>
+  </div>
+  <div class="payment_container">
+    <div class="payment_wrapper">
+      <div class="mpesa_card">
+        <div class="lipa_naMpesaIMG">
+          <img
+            src="{{url_for('static', filename='images/lipanampesa.png')}}"
+            alt="Lipa na Mpesa"
+          />
+        </div>
+        <div class="mpesa_card_body">
+          <div class="amount">
+            Amount:
+            <span class="payment_amount"
+              >KSH {{product.price|int * booking.days|int }}</span
+            >
+          </div>
+          <form
+            method="POST"
+            action=""
+            onsubmit="process(event)"
+            class="pay-form"
+          >
+            <label class="phone_label">MPESA Number:</label>
+            <input
+              type="tel"
+              placeholder="Enter your Mpesa Phone number"
+              class="phone_input"
+              name="phone"
+              id="phone"
+            />
+
+            <button type="submit" class="pay_btn" id="pay_btn">Pay</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="payment_wrapper stripe-wrapper">
+      <div class="mpesa_card">
+        <div class="lipa_naMpesaIMG">
+          <img
+            src="{{url_for('static', filename='images/stripe-payment.png')}}"
+            alt="Lipa na Mpesa"
+          />
+        </div>
+        <div class="mpesa_card_body">
+          <div class="amount">
+            Amount:
+            <span class="payment_amount"
+              >KSH {{product.price|int * booking.days|int }}</span
+            >
+          </div>
+          <div class="stripe-text">
+            <p>
+              Stripe Payments allows you to transfer money from a customer's
+              bank account into your business's account by way of a credit or
+              debit card transaction.
+            </p>
+          </div>
+          <button type="submit" class="pay_btn2" id="pay_btn2">
+            Pay with your card
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts to help with phone input button -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<script>
+  function getIp(callback) {
+    fetch("https://ipinfo.io/json?token=9ad7194a85a9e6", {
+      headers: { Accept: "application/json" },
+    })
+      .then((resp) => resp.json())
+      .catch(() => {
+        return {
+          country: "us",
+        };
+      })
+      .then((resp) => callback(resp.country));
+  }
+
+  const phoneInputField = document.querySelector("#phone");
+  const phoneInput = window.intlTelInput(phoneInputField, {
+    initialCountry: "auto",
+    geoIpLookup: getIp,
+    utilsScript:
+      "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  });
+  document.querySelector("#pay_btn").addEventListener("click", (e) => {
+    const phoneNumber = phoneInput.getNumber();
+    fetch(`/mpesa-pay?phone=${phoneNumber}`).then().catch();
+    console.log(phoneNumber);
+  });
+
+  document.querySelector("#pay_btn2").addEventListener("click", (e) => {
+    fetch("url_for('card-pay')").then().catch();
+  });
+</script>
+
+{%endblock content%}

@@ -1,0 +1,63 @@
+{% extends "layout.html"%} {%block content%}
+
+<div class="slideshow-container">
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 3</div>
+    <img
+      src="{{url_for('static', filename='images/'+product.image_1)}}"
+      style="width: 100%"
+      class="img"
+    />
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">2 / 3</div>
+    <img
+      src="{{url_for('static', filename='images/'+product.image_2)}}"
+      style="width: 100%"
+      class="img"
+    />
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 3</div>
+    <img
+      src="{{url_for('static', filename='images/'+product.image_3)}}"
+      style="width: 100%"
+      class="img"
+    />
+  </div>
+  <!-- <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a> -->
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <h1 class="text-center mt-5" style="color: brown">Book Now</h1>
+      {% include "_msgs.html"%} {% from "_formhelpers.html" import
+      render_field%}
+      <form method="POST" action="{{url_for('bookings', id=product.id)}}">
+        {% include "_msgs.html"%} {% from "_formhelpers.html" import
+        render_field%}
+        <div class="notify">
+          <p class="notification" style="color: #fff"></p>
+        </div>
+        <div>
+          {{ render_field(form.days, class="form-control",
+          id="days",placeholder="Days") }} {{ render_field(form.date_in,
+          class="form-control",id="dateIn", placeholder="Date in") }} {{
+          render_field(form.date_out, class="form-control",
+          id="dateOut",placeholder="Date  out") }} {{ render_field(form.submit,
+          class="form-control") }}
+        </div>
+      </form>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+
+<script src="{{url_for('static', filename='js/slideshow.js')}}"></script>
+<script src="{{url_for('static', filename='js/booking.js')}}"></script>
+
+{%endblock content%}

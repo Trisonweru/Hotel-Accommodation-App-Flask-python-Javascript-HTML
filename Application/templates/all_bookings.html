@@ -1,0 +1,64 @@
+{% extends "layout.html"%} {%block content%}
+<div class="container1">
+  <div class="cont_wrapper">
+    <h1 class="text-center mt-5" style="color: brown">All Bookings</h1>
+    {% include "_msgs.html"%} {% from "_formhelpers.html" import render_field%}
+    <form method="POST" action="{{url_for('search_bookings')}}">
+      <div class="search">
+        <div class="input">
+          <input
+            type="text"
+            placeholder="Search customer by name or phone"
+            name="search"
+            class="myinput"
+          />
+        </div>
+        <div class="search-btn">
+          <button type="submit" class="btn-search">Search</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="card_wrapper">
+      {% if bookings %} {% for item in bookings %}
+      <div class="card2" style="border-radius: 8px">
+        <div class="content_wrapper2">
+          <div class="card-body">
+            {%if item.active %}
+            <p class="status">Active</p>
+            {%else%}
+            <p class="status">Cancelled</p>
+            {%endif%}
+            <h4 class="item2_heading">{{item.listing.name}}</h4>
+            <p class="item_price" style="color: #a22929">
+              Price:
+              <span style="font-weight: bold">${{item.listing.price}}</span> for
+              {{item.days}} days
+            </p>
+            <p class="">
+              <span style="font-weight: bold">From: </span>
+              {{item.date_in|replace("00:00:00", "", 1)}}
+            </p>
+            <p class="">
+              <span style="font-weight: bold">To: </span
+              >{{item.date_out|replace("00:00:00", "", 1)}}
+            </p>
+          </div>
+          <div class="card-footer">
+            <p>
+              <span style="font-weight: bold">Phone: </span>{{item.user.phone}}
+            </p>
+            <p>
+              <span style="font-weight: bold">Email: </span>{{item.user.email}}
+            </p>
+          </div>
+        </div>
+      </div>
+      {%endfor%} {%else%}
+      <div><p>No bookings at the moment.</p></div>
+      {%endif%}
+    </div>
+  </div>
+</div>
+
+{%endblock content%}

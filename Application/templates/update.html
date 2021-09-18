@@ -1,0 +1,26 @@
+{% extends "layout.html"%} {%block content%}
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <h1 class="text-center mt-5" style="color: brown">Edit Booking</h1>
+      {% include "_msgs.html"%} {% from "_formhelpers.html" import
+      render_field%}
+      <form method="POST">
+        {% include "_msgs.html"%} {% from "_formhelpers.html" import
+        render_field%}
+        <div>
+          {{ render_field(form.days, class="form-control", placeholder="Days")
+          }} {{ render_field(form.date_in, class="form-control", id="dateIn",
+          placeholder="Date in") }} {{ render_field(form.date_out,
+          class="form-control",id="dateOut", placeholder="Date  out") }} {{
+          render_field(form.submit, class="form-control") }}
+        </div>
+      </form>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+<script src="{{url_for('static', filename='js/booking.js')}}"></script>
+
+{%endblock content%}

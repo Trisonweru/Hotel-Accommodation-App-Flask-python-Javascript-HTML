@@ -1,0 +1,238 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Encode Sans Expanded", sans-serif;
+}
+body {
+  min-height: 100vh;
+  background: #fff;
+}
+.navigation {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  bottom: 20px;
+  width: 300px;
+  border-radius: 10px;
+  box-sizing: initial;
+  border-left: 5px solid #a03232;
+  background: #293339;
+  transition: width 0.5s;
+  overflow-x: hidden;
+}
+.navigation.active {
+  width: 70px;
+}
+.logo > img {
+  position: absolute;
+  left: -17px;
+  width: 200px;
+  height: 75px;
+  max-width: 200px;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.navigation ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 5px;
+  padding-top: 85px;
+}
+.navigation ul li {
+  position: relative;
+  list-style: none;
+  width: 100%;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+}
+.navigation ul li.active {
+  background: #fff;
+}
+.navigation ul li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: #fff;
+}
+.navigation ul li.active a {
+  color: #293339;
+}
+.navigation ul li a .icon {
+  position: relative;
+  display: block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+.navigation ul li a .icon i {
+  font-size: 1.5em;
+}
+.navigation ul li a .title {
+  position: relative;
+  display: block;
+  padding-left: 10px;
+  height: 60px;
+  line-height: 60px;
+  white-space: normal;
+}
+.navigation ul li b:nth-child(1) {
+  position: absolute;
+  top: -20px;
+  height: 20px;
+  width: 100%;
+  background: #fff;
+  display: none;
+}
+.navigation ul li b:nth-child(1)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-bottom-right-radius: 20px;
+  background: #293339;
+}
+.navigation ul li b:nth-child(2) {
+  position: absolute;
+  bottom: -20px;
+  height: 20px;
+  width: 100%;
+  background: #fff;
+  display: none;
+}
+.navigation ul li b:nth-child(2)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 20px;
+  background: #293339;
+}
+.navigation ul li.active b:nth-child(1),
+.navigation ul li.active b:nth-child(2) {
+  display: block;
+}
+/* .toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #293339;
+  border-radius: 10px;
+  cursor: pointer;
+} */
+
+.toggle {
+  position: fixed;
+  top: 20px;
+  left: 340px;
+  width: 50px;
+  height: 50px;
+  background: #293339;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.toggle.active {
+  background: #a03232;
+}
+.toggle i {
+  position: absolute;
+  font-size: 34px;
+  color: #fff;
+  display: none;
+}
+
+.toggle i.uil-bars,
+.toggle.active i.uil-times {
+  display: block;
+}
+.toggle i.uil-times,
+.toggle.active i.uil-bars {
+  display: none;
+}
+.user {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+.user i:hover {
+  background: #293339;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user i {
+  position: absolute;
+  font-size: 34px;
+  color: #293339;
+}
+.notifications {
+  position: fixed;
+  top: 20px;
+  right: 80px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.notifications i:hover {
+  background-color: #293339;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notifications i {
+  position: absolute;
+  font-size: 34px;
+  color: #293339;
+}
+.user-dropdown {
+  display: none;
+}
+
+.dropdrown {
+  position: relative;
+  display: inline-block;
+}
+.user i:hover .user-dropdown {
+  display: block;
+  transition: all ease-in-out 0.8s;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  height: max-content;
+  width: 150px;
+  background: #293339;
+  z-index: 1;
+}

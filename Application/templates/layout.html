@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/bootstrap-material-design.min.css')}}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/main.css')}}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+    />
+
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <a href="/" class="logo"
+          ><img src="{{url_for('static', filename='images/logo.png')}}"
+        /></a>
+        <!-- mobile icon here -->
+        <div class="mobi-icon" id="mobi-icon">
+          <i class="bi bi-list"></i>
+        </div>
+
+        <div class="nav">
+          <ul class="nav-menu">
+            <li class="nav-item" id="nav-item">
+              <a class="nav_link" id="nav_link" href="{{url_for('home')}}"
+                ><i class="uil uil-estate"></i>Home</a
+              >
+            </li>
+            {% if session['myuser'] == "admin" or session['myuser'] ==
+            "superadmin" %}
+            <li class="nav-item" id="nav-item">
+              <a
+                class="nav_link"
+                id="nav_link"
+                href="{{url_for('add_listing')}}"
+                ><i class="uil uil-plus-circle"></i>Add Listing</a
+              >
+            </li>
+            {% endif %} {% if session['myuser'] == "admin" or session['myuser']
+            == "superadmin" %}
+            <li class="nav-item" id="nav-item">
+              <a class="nav_link" id="nav_link" href="/all_bookings"
+                ><i class="uil uil-save"></i>View Bookings</a
+              >
+            </li>
+            {% endif %} {% if session['myuser'] == "customer" %}
+            <li class="nav-item" id="nav-item">
+              <a class="nav_link" id="nav_link" href="/view_bookings"
+                ><i class="uil uil-save"></i>View Booking</a
+              >
+            </li>
+            {% endif %} {% if session['myuser'] == "superadmin" %}
+            <li class="nav-item" id="nav-item">
+              <a class="nav_link" id="nav_link" href="/create_admin"
+                ><i class="uil uil-user-plus"></i>Create Admin User</a
+              >
+            </li>
+            {% endif %}{% if "username" in session%}
+            <li class="nav-item" id="nav-item">
+              <a class="nav_link" id="nav_link" href="/logout"
+                ><i class="uil uil-sign-out-alt"></i>Logout</a
+              >
+            </li>
+            {% else %}
+            <li class="nav-item" id="nav-item">
+              <a class="nav_link" id="nav_link" href="/login"
+                ><i class="uil uil-sign-in-alt"></i>Login</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+      <div class="close-btn" id="close-btn"><i class="bi bi-x-lg"></i></div>
+
+      <div class="sidebar-wrapper">
+        <ul class="sidebar-menu">
+          <li class="sidebar-item">
+            <a class="nav_link" href="/">Home</a>
+          </li>
+          {% if session['myuser'] == "admin" or session['myuser'] ==
+          "superadmin" %}
+          <li class="sidebar-item">
+            <a class="nav_link" href="/add_listing">Add Listing</a>
+          </li>
+          {% endif %} {% if session['myuser'] == "admin" or session['myuser'] ==
+          "superadmin" %}
+          <li class="sidebar-item">
+            <a class="nav_link" href="/all_bookings">View Bookings</a>
+          </li>
+          {% endif %} {% if session['myuser'] == "customer" %}
+          <li class="sidebar-item">
+            <a class="nav_link" href="/view_bookings">View Booking</a>
+          </li>
+          {% endif %} {% if session['myuser'] == "superadmin" %}
+          <li class="sidebar-item">
+            <a class="nav_link" href="/create_admin">Create Admin User</a>
+          </li>
+          {% endif %}{% if "username" in session%}
+          <li class="sidebar-item">
+            <a class="nav_link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li class="sidebar-item">
+            <a class="nav_link" href="/login"><img src="" />Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+    {%block content%} {%endblock content%}
+    <script src="{{url_for('static', filename='js/active.js')}}"></script>
+    <!-- <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script> -->
+
+    <script src="{{url_for('static', filename='js/jquery-3.2.1.slim.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/popper.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap-material-design.js')}}"></script>
+
+    <script src="{{url_for('static', filename='js/toggle-sidebar.js')}}"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("body").bootstrapMaterialDesign();
+      });
+    </script>
+  </body>
+</html>

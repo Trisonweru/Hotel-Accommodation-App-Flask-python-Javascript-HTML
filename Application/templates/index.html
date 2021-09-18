@@ -1,0 +1,226 @@
+{% extends "layout.html"%} {%block content%}
+<div class="container1">
+  <div class="cont_wrapper" id="scroller">
+    <!-- Filter content -->
+    <div class="item_no"><p>Filter by price</p></div>
+    <div class="filter-wrapper">   
+         <img  
+         class="activator"   
+         id="activator"       
+          src="https://s2.svgbox.net/hero-outline.svg?ic=adjustments&color=ffffff"
+          width="35"
+          height="35"
+        />             
+          <div class="filter-nav">
+             <ul>
+            <li>
+              <a href="#"
+                ><img
+                  src="https://s2.svgbox.net/hero-outline.svg?ic=arrow-narrow-up&color=ffffff"
+                  width="35"
+                  height="35"
+                  class="filter-icon"
+                /></a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><img
+                  src="https://s2.svgbox.net/hero-outline.svg?ic=arrow-narrow-down&color=ffffff"
+                  width="35"
+                  height="35"
+                  class="filter-icon"
+                /></a
+              >
+            </li>
+          </ul>
+          </div>
+          <form method="POST" action="{{url_for('home')}}">
+            <div class="search">
+            <div class="input">
+              <input
+              type="text"
+              placeholder="Search by hotel name"
+              name="search"
+              class="myinput"
+              id="searchInput"
+            />
+        </div> 
+
+          </form>
+           <div class="search-btn">
+          <button type="submit" class="btn-search" id="search">Search</button>
+        </div>
+        
+        
+      </div>
+
+</form>
+     
+         
+    </div>
+      <!-- End of filtering contents -->
+      
+      <template id="item_template">
+        <div class="card1 animated fadeIn shadow-sm" style="border-radius: 8px">
+          <div class="image_wrapper">
+            <img
+              src=""
+              alt=""
+              width="400"
+              height="200"
+              class="card-img-top"
+              id="item_image"
+            />
+          </div>
+          <div class="content_wrapper">
+            <div class="card-body">
+              <h4 class="item_heading" id="item_name"></h4>
+              <p class="item_price" style="color: #a22929">
+                Price: $<span style="font-weight: bold" id="price"></span>
+              </p>
+              <h3 class="description_heading">Description</h3>
+              <p class="item_description" id="item_description"></p>
+            </div>
+            <div class="card-footer">
+              <a href="" class="float-left btn-outline btn-sm" id="book"
+                >Book Reservation </a
+              >
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div class="d-flex justify-content-center mb-3 mt-3" id="sentinel">
+      <div class="spinner-border" role="status"></div>
+    </div>
+  </div>
+
+   <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"
+      integrity="sha512-UxP+UhJaGRWuMG2YC6LPWYpFQnsSgnor0VUF3BHdD83PS/pOpN+FYbZmrYN+ISX8jnvgVUciqP/fILOXDjZSwg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/CSSRulePlugin.min.js"
+      integrity="sha512-SuKlyVGK9c7adN5I0qO0zZt1KAXK9WpUguwgH16A3s8Wvrc1X3mum4PS9bI7223Y2v5KBzx3qTCdlVymgF0uWg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+  <script>
+    var scroller = document.querySelector("#scroller");
+    var template = document.querySelector("#item_template").content;
+    // var loaded = document.querySelector("#loaded");
+    var sentinel = document.querySelector("#sentinel");
+    
+    var counter = 0;
+    var counter2=0 
+
+    function loadItems() {
+      var inputVal=document.getElementById('searchInput').value
+      if(inputVal.length !=0 ){
+        fetch(`/load?c2=${counter2}&v=${inputVal}`).then((response) => {
+        response.json().then((data) => {
+          if (!data.length) {
+            sentinel.innerHTML = "No more items";
+          }
+          for (var i = 0; i <= data.length; i++) {
+            let template_clone = template.cloneNode(true);
+            template_clone.querySelector(
+              "#item_name"
+            ).innerHTML = `${data[i]["name"]}`;
+            template_clone.querySelector(
+              "#price"
+            ).innerHTML = `${data[i]["price"]}`;
+            template_clone.querySelector(
+              "#item_description"
+            ).innerHTML = `${data[i]["description"]}`;
+            template_clone.querySelector(
+              "#book"
+            ).href = `/bookings/${data[i]["id"]}`;
+            template_clone.querySelector(
+              "#item_image"
+            ).src = `http://localhost:5000/static/images/${data[i]["image_1"]}`;
+
+            scroller.appendChild(template_clone);
+            counter2 += 1;
+            document.getElementById('searchInput').value=""
+            // loaded.innerHTML = `${counter} items`;
+          }
+        });
+      });
+      }
+      else{
+        fetch(`/load?c=${counter}`).then((response) => {
+        response.json().then((data) => {
+          if (!data.length) {
+            sentinel.innerHTML = "No more items";
+          }
+          for (var i = 0; i <= data.length; i++) {
+            let template_clone = template.cloneNode(true);
+            template_clone.querySelector(
+              "#item_name"
+            ).innerHTML = `${data[i]["name"]}`;
+            template_clone.querySelector(
+              "#price"
+            ).innerHTML = `${data[i]["price"]}`;
+            template_clone.querySelector(
+              "#item_description"
+            ).innerHTML = `${data[i]["description"]}`;
+            template_clone.querySelector(
+              "#book"
+            ).href = `/bookings/${data[i]["id"]}`;
+            template_clone.querySelector(
+              "#item_image"
+            ).src = `http://localhost:5000/static/images/${data[i]["image_1"]}`;
+
+            scroller.appendChild(template_clone);
+            counter += 1;
+            // loaded.innerHTML = `${counter} items`;
+          }
+        });
+      });
+
+      }
+      
+    }
+    //Search
+    document.getElementById('search').addEventListener("click", ()=>{
+      loadItems()
+    })
+
+    var intersectionObserver = new IntersectionObserver((entries) => {
+      if (entries[0].intersectionRatio <= 0) {
+        return;
+      }
+      loadItems();
+    });
+
+    intersectionObserver.observe(sentinel);
+
+    //filter animation
+    var card=document.getElementById("activator")
+    var t1=gsap.timeline({defaults: {ease:"power2.inOut"}})
+    var toggle=false;
+    t1.to('.activator', {
+      background: '#03c4f4',
+      'borderRadius':'5em 0 0 5em'
+    })
+    t1.to('.filter-nav',{
+      'clipPath':'ellipse(100% 100% at 50% 50%)'
+    }, "-=.5")
+    t1.to('.filter-nav > ul > li > a > img', {
+      opacity:1,
+      transform:'translate(0)',
+      stagger:.05
+    }, "-=.5")
+    t1.pause()
+    card.addEventListener('click', ()=>{
+      toggle=!toggle
+      if(toggle? t1.play():t1.reverse());
+    })
+  </script>
+  {%endblock content%}
+</div>

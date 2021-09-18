@@ -1,0 +1,77 @@
+{% extends "layout.html"%} {%block content%}
+<div class="container1">
+  <div class="cont_wrapper">
+    <h1 class="text-center mt-5" style="color: brown">My Bookings</h1>
+    {% include "_msgs.html"%} {% from "_formhelpers.html" import render_field%}
+    <div class="card_wrapper">
+      {%if bookings|count > 0%} {% for item in bookings %}
+      <div class="card2" style="border-radius: 8px">
+        <div class="content_wrapper2">
+          <div class="card-body">
+            <h4 class="item2_heading">{{item.listing.name}}</h4>
+            <p class="item_price" style="color: #a22929">
+              Price:
+              <span style="font-weight: bold">${{item.listing.price}}</span> for
+              {{item.days}} days
+            </p>
+            {%if item.paid%}
+            <p>
+              <span style="font-weight: bold">Payment status: </span>Processing
+            </p>
+            {%else%}
+            <p>Payment status: Unpaid</p>
+            {%endif%} {%if item.paid%}
+            <p>
+              <span style="font-weight: bold">Payment No: </span
+              >+{{item.payment_no}}
+            </p>
+            {%endif%}
+            <p class="">
+              <span style="font-weight: bold">From: </span>
+              {{item.date_in|replace("00:00:00", "", 1)}}
+            </p>
+            <p class="">
+              <span style="font-weight: bold">To: </span
+              >{{item.date_out|replace("00:00:00", "", 1)}}
+            </p>
+          </div>
+          <div class="card-footer cft2">
+            {% if item.active %} {%if item.paid==False %}
+            <div class="baction">
+              <a
+                href="{{url_for('payment', product=item.listing.id, booking=item.id)}}"
+                class="float-left btn-outline btn-sm jstbtn2"
+                ><i class="uil uil-transaction"></i> Pay</a
+              >
+            </div>
+            {%endif%}
+            <div class="baction">
+              <a
+                href="{{url_for('update_booking', id=item.id)}}"
+                class="float-left btn-outline btn-sm jstbtn2"
+                ><i class="uil uil-edit"></i> Edit</a
+              >
+            </div>
+            <div class="baction">
+              <a
+                href="{{url_for('cancel_booking', id=item.id)}}"
+                class="float-left btn-outline btn-sm jstbtn2"
+                ><i class="uil uil-cancel"></i> Cancel</a
+              >
+            </div>
+            {%else%}
+            <div><p class="cancelled">Booking cancelled</p></div>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+      {%endfor%} {%else%}
+      <div style="width: 1050px; margin-top: 30px">
+        <p style="text-align: center">You have no bookings at the moment.</p>
+      </div>
+      {%endif%}
+    </div>
+  </div>
+</div>
+
+{%endblock content%}
